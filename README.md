@@ -1,2 +1,2 @@
-# bin
-Scripts in my ~/bin dir
+# tools
+Scripts, utilities, and programs to add to PATH
