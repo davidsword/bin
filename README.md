@@ -1,2 +1,2 @@
 # tools
-Scripts, utilities, and programs to add to PATH
+Scripts & utilities for PATH, cron, and other tools.
