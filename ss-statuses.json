@@ -1,0 +1,72 @@
+[
+    {
+      "title"     : "active",
+      "presence"  : "auto",
+      "emoji"     : "",
+      "text"      : "",
+      "busy-light": "available"
+    },
+    {
+      "title"     : "away",
+      "presence"  : "away",
+      "emoji"     : ":yellow-dot:",
+      "text"      : "brb",
+      "busy-light": "away"
+    },
+    {
+      "title"     : "lunch",
+      "presence"  : "away",
+      "emoji"     : ":yellow-dot:",
+      "text"      : "brb, lunch",
+      "busy-light": "away"
+    },
+    {
+      "title"     : "fam",
+      "presence"  : "away",
+      "emoji"     : ":yellow-dot:",
+      "text"      : "brb, family duties",
+      "busy-light": "away"
+    },
+    {
+      "title"     : "meeting",
+      "presence"  : "auto",
+      "emoji"     : ":red-dot:",
+      "text"      : "currently in a meeting",
+      "busy-light": "busy"
+    },
+    {
+      "title"     : "oncall",
+      "presence"  : "auto",
+      "emoji"     : ":red-dot:",
+      "text"      : "oncall",
+      "busy-light": "busy"
+    },
+    {
+      "title"     : "red",
+      "presence"  : "auto",
+      "emoji"     : "",
+      "text"      : "",
+      "busy-light": "busy"
+    },
+    {
+      "title"     : "busy",
+      "presence"  : "away",
+      "emoji"     : ":red-dot:",
+      "text"      : "focused work",
+      "busy-light": "busy"
+    },
+    {
+      "title"     : "afk",
+      "presence"  : "away",
+      "emoji"     : ":afk:",
+      "text"      : "",
+      "busy-light": "offline"
+    },
+    {
+      "title"     : "offline",
+      "presence"  : "away",
+      "emoji"     : "",
+      "text"      : "",
+      "busy-light": "offline"
+    }
+]
