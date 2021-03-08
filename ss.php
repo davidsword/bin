@@ -28,9 +28,8 @@ foreach ( $statuses as $status ) {
 
 if ( ! $query || ! isset( $match_found ) ) {
 	echo "❌ incorrect input query, use: \n";
-	foreach ( $statuses as $status ) {
+	foreach ( $statuses as $status )
 		echo " - ".trim( strtolower( $status['title'] ) )."\n";
-	}
 	die;
 }
 
@@ -59,7 +58,6 @@ $url = 'https://slack.com/api/users.setPresence';
 $body = json_encode( [ 'presence' => $presence ] );
 curl_payload( $url, $body, get_slack_token() );
 
-
 // https://developers.home-assistant.io/docs/api/rest/
 $url = HOME_ASSISTANT_HOST_URL . '/api/states/'. HOME_ASSISTANT_BUSYLIGHT_ENTITY;
 $body = json_encode( [ 'state' => ucfirst( $status['busy-light'] ) ] );
@@ -75,7 +73,6 @@ $light = [
 $presence = 'auto' === $presence ? 'Active' : ucfirst( $presence );
 $slack_status = ( 'Active' === $title ) ? '' : ": {$title}";
 echo "{$light[$status['busy-light']]} {$presence} | {$text} \n";
-
 
 // HELPERS ---
 
