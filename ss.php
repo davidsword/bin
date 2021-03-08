@@ -49,53 +49,21 @@ $data = [
 	],
 ];
 
-$data = json_encode( $data );
-
-// CUSTOM STATUS
-$ch = curl_init();
-curl_setopt( $ch, CURLOPT_URL, 'https://slack.com/api/users.profile.set' );
-curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 2 );
-curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-curl_setopt( $ch, CURLOPT_POSTFIELDS, $data ); 
-curl_setopt(
-	$ch,
-	CURLOPT_HTTPHEADER,
-	array(
-		'Authorization: Bearer ' . get_slack_token(),
-		'Content-type: application/json; charset=utf-8',
-	) 
-);
-$buffer = curl_exec( $ch );
-curl_close( $ch );
-
-$body = json_decode( $buffer );
-
-if ( ! $body->ok ) {
-	echo print_r( $body );
-	echo 'Error ' . $body->error;
-}
+// https://api.slack.com/methods/users.profile.set
+$url = 'https://slack.com/api/users.profile.set';
+$body = json_encode( $data );
+curl_payload( $url, $body, get_slack_token() );
 
 // https://api.slack.com/methods/users.setPresence
-$ch = curl_init();
-curl_setopt( $ch, CURLOPT_URL, 'https://slack.com/api/users.setPresence' );
-curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 2 );
-curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( [ 'presence' => $presence ] ) ); 
-curl_setopt(
-	$ch,
-	CURLOPT_HTTPHEADER,
-	array(
-		'Authorization: Bearer ' . get_slack_token(),
-		'Content-type: application/json; charset=utf-8',
-	) 
-);
-$buffer = curl_exec( $ch );
-if ( $buffer === false ) {
-	echo 'Slack Curl error: ' . curl_error($ch);
-}
-curl_close( $ch );
+$url = 'https://slack.com/api/users.setPresence';
+$body = json_encode( [ 'presence' => $presence ] );
+curl_payload( $url, $body, get_slack_token() );
 
-change_home_assistant_busy_light_state_to( $status['busy-light'] );
+
+// https://developers.home-assistant.io/docs/api/rest/
+$url = HOME_ASSISTANT_HOST_URL . '/api/states/'. HOME_ASSISTANT_BUSYLIGHT_ENTITY;
+$body = json_encode( [ 'state' => ucfirst( $status['busy-light'] ) ] );
+curl_payload( $url, $body, HOME_ASSISTANT_TOKEN );
 
 $light = [
 	'available' => '🟢',
@@ -106,7 +74,7 @@ $light = [
 
 $presence = 'auto' === $presence ? 'Active' : ucfirst( $presence );
 $slack_status = ( 'Active' === $title ) ? '' : ": {$title}";
-echo "{$light[$status['busy-light']]} | {$presence} \n";
+echo "{$light[$status['busy-light']]} {$presence} | {$text} \n";
 
 
 // HELPERS ---
@@ -131,25 +99,23 @@ function get_slack_token() {
 	return 'no-token';
 }
 
-function change_home_assistant_busy_light_state_to( $new_status ) {
-	// Tell `Home Assistant`
-	// https://developers.home-assistant.io/docs/api/rest/
+function curl_payload( $url, $body, $token ) {
 	$ch = curl_init();
-	curl_setopt( $ch, CURLOPT_URL, HOME_ASSISTANT_HOST_URL . '/api/states/'. HOME_ASSISTANT_BUSYLIGHT_ENTITY );
+	curl_setopt( $ch, CURLOPT_URL, $url );
 	curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 2 );
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( [ 'state' => ucfirst( $new_status ) ] ) );
+	curl_setopt( $ch, CURLOPT_POSTFIELDS, $body );
 	curl_setopt(
 		$ch,
 		CURLOPT_HTTPHEADER,
 		array(
-			'Authorization: Bearer ' . HOME_ASSISTANT_TOKEN,
+			'Authorization: Bearer ' . $token,
 			'Content-type: application/json; charset=utf-8',
 		) 
 	);
 	$buffer = curl_exec( $ch );
 	if ( $buffer === false ) {
-		echo 'HA Curl error: ' . curl_error($ch);
+		echo 'Curl error to ' . $url . ' : ' . curl_error($ch);
 	}
 	curl_close( $ch );
 }
