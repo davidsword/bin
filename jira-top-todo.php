@@ -1,6 +1,6 @@
 <?php
 /**
- * Jira top IN PROGRESS Task.
+ * Jira top IN PROGRESS
  *
  * results in string output of:
  * `JIRA-123 Task Name`
@@ -10,7 +10,7 @@
  */
 require __DIR__.'/_config.php';
 
-echo truncate( jira_get_top_issue(), 50 );
+echo truncate( jira_get_top_issue(), 70 );
 
 /**
  * Curl JIRA for high priority in IN PROGRESS colunm.
