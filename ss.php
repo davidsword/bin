@@ -12,6 +12,7 @@
  */
 
 require '_config.php';
+require '_helpers.php';
 
 $query = $_SERVER['argv'][1] ?? die("error: add a status\n"); 
 
@@ -83,10 +84,6 @@ function get_statuses() {
 
 function search_keyword_in_string( $needle, $haystack ) {
 	return strstr( strtolower( $haystack ), strtolower( $needle ) );
-}
-
-function sanitize( $v ) {
-	return preg_replace( '/[^a-zA-Z0-9 _\-]/', '', $v );
 }
 
 function get_slack_token() {
