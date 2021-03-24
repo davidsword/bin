@@ -16,6 +16,7 @@ require 'vendor/autoload.php';
 
 define('ESP_SHOW_LIMIT', 2);
 define('ESP_SHOW_CHARS', 999);
+define('ESP_THRESHOLD', 0.3); //@see https://github.com/loilo/Fuse#options
 
 //@TODO should be a helper library for cli output instead.
 define('CLI_NORMAL', "\e[0m");
@@ -42,6 +43,7 @@ foreach ( $matches as $match ) {
 
 $fuse = new \Fuse\Fuse($for_fuse, [
     "keys" => [ "trigger", "replace" ],
+    "threshold" => ESP_THRESHOLD
 ]);
   
 $results = $fuse->search( $query );
