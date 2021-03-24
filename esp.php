@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 /**
- * Fuzzy search Espanso matches
+ * Fuzzy search for Espanso matches
  * 
- * Helps when forgetting the trigger.
+ * Helps when forgetting the trigger (which happens to me all the time)
  * 
  * @see espanso.org
  * 
@@ -11,15 +11,15 @@
  *   `$ esp backup`
  */
 
-require '../_helpers.php';
-require '../vendor/autoload.php';
+require '_helpers.php';
+require 'vendor/autoload.php';
 
-define('ESP_SHOW_LIMIT', 3);
+define('ESP_SHOW_LIMIT', 2);
+define('ESP_SHOW_CHARS', 999);
 
 //@TODO should be a helper library for cli output instead.
 define('CLI_NORMAL', "\e[0m");
 define('CLI_DIM', "\e[2m");
-define('CLI_INDENT', "    ");
 
 $query = sanitize($_SERVER['argv'][1]) ?? die("❌ a query is needed\n"); 
 
@@ -31,6 +31,7 @@ if ( ! $espanso_list || empty( $espanso_list ) )
 
 $matches = json_decode( $espanso_list, JSON_OBJECT_AS_ARRAY );
 
+// @TODO probably can just edit keys of Fuse instead of creating a whole new array
 $for_fuse = [];
 foreach ( $matches as $match ) {
     $for_fuse[] = [
@@ -50,6 +51,8 @@ foreach ( $results as $result ) {
     if ( $i == ESP_SHOW_LIMIT) 
         break;
     echo CLI_NORMAL."{$result['trigger']}\n";
-    echo CLI_DIM.CLI_INDENT.str_replace("\n","\n".CLI_INDENT,truncate( $result['replace'], 100 ))."\n";
+    $replace = truncate( $result['replace'], ESP_SHOW_CHARS );
+    $indented_txt = str_replace("\n","\n",$replace);
+    echo CLI_DIM.$indented_txt."\n\n";
     $i++;
 }
