@@ -1,0 +1,5 @@
+{
+    "require": {
+        "loilo/fuse": "^4.0"
+    }
+}

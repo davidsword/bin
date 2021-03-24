@@ -4,3 +4,4 @@ _config.conf
 a8c*
 vip*
 phpcs/
+vendor/
