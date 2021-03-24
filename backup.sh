@@ -18,7 +18,7 @@ if (( $(echo "$CHECK > $BACKUPSIZE" |bc -l) )); then
   #todo gnome notification
 else
   echo "starting backup of ~/ to '$BACKUPTO'"
-  rsync -a --delete ~/ $BACKUPTO
+  echo "rsync -a --delete ~/ $BACKUPTO"
 fi
 
 # @TODO add a .txt timestamp last backup
