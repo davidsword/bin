@@ -73,9 +73,22 @@ $light = [
 	'offline'   => '⚪',
 ];
 
-$presence = 'auto' === $presence ? 'Active' : ucfirst( $presence );
+$presence = 'auto' === $presence ? 'ACTIVE' : strtoupper( $presence );
 $slack_status = ( 'Active' === $title ) ? '' : ": {$title}";
-echo "{$light[$status['busy-light']]} {$presence} | {$text} \n";
+$sep = ! empty( $text ) ? " | " : '';
+
+//@TODO should be a helper library for cli output instead.
+// https://misc.flogisoft.com/bash/tip_colors_and_formatting
+define('CLI_NORMAL', "\e[49m");
+define('CLI_DIM', "\e[2m");
+$cli = [
+	'available' => "\e[42m",
+	'away'      => "\e[43m",
+	'busy'      => "\e[41m",
+	'offline'   => "\e[100m",
+];
+
+echo "\n  Status changed to: \n  {$cli[$status['busy-light']]}{$presence}".CLI_NORMAL." {$text} \n\n";
 
 // HELPERS ---
 
