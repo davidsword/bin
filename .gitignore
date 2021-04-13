@@ -5,3 +5,4 @@ a8c*
 vip*
 phpcs/
 vendor/
+.vscode/
