@@ -16,7 +16,7 @@
 require '_helpers.php';
 require 'vendor/autoload.php';
 
-define('ESP_SHOW_LIMIT', 2);
+define('ESP_SHOW_LIMIT', 3);
 define('ESP_SHOW_CHARS', 999);
 define('ESP_THRESHOLD', 0.3); //@see https://github.com/loilo/Fuse#options
 
