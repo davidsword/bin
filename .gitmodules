@@ -1,0 +1,6 @@
+[submodule "espanso-search"]
+	path = espanso-search
+	url = https://github.com/davidsword/espanso-search
+[submodule "todoist-cli-quick-add"]
+	path = todoist-cli-quick-add
+	url = https://github.com/davidsword/todoist-cli-quick-add
