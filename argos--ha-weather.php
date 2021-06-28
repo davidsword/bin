@@ -26,6 +26,7 @@ $emojis = [
 
 $emoji = $emojis[$weather->state] ?? $weather->state;
 
-//print_r($office);die;
+$outside = $emoji.' ' . intval( $weather->attributes->temperature ) . '°';
+$inside  = intval(round($office->state)). '°';
 
-echo $emoji.' ' . intval( $weather->attributes->temperature ) . '°'; // / ' . intval(round($office->state)). '°'
+echo "{$outside} / {$inside}";
