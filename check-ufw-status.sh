@@ -7,6 +7,7 @@
 # sudo crontab -e
 # * * * * * /bin/bash /home/davidsword/tools/check-ufw-status.sh
 
+# @TODO this can probably be done in the Argo files itself instead of +2 files
 
 STATUS=$(ufw status)
 
