@@ -24,11 +24,9 @@ function sanitize( $v = '', $preserve_emojis = false ) {
 	return preg_replace( '/[^a-zA-Z0-9 _\-]/', '', $v );
 }
 
-function get_rest_response( $url, $token ) {
+function get_rest_response( $url, $token = false ) {
 	if ( empty($url) )
 		die('❌ invalid url in get_rest_response()');
-	if ( empty($token) )
-		die('❌ invalid token in get_rest_response()');
 
 	$ch = curl_init();
 	curl_setopt( $ch, CURLOPT_URL, $url );
