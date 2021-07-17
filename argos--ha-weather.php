@@ -17,7 +17,7 @@ echo get_outside_temp() . ' / ' . get_inside_temp();
 function get_outside_temp() {
 	// via https://www.mathworks.com/help/thingspeak/rest-api.html
 	$outside = get_rest_response(LOCAL_WEATHER_API);
-	// @todo check response before outputting
+	// @TODO check response before outputting
 	return temp($outside->feeds[99]->field1);
 }
 
