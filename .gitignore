@@ -10,3 +10,4 @@ cache/
 .env
 node_modules
 bin/
+activitywatch/
